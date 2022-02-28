@@ -79,6 +79,20 @@ class StringCalculatorTest extends TestCase
         $this->assertEquals("Negative not allowed: -1, -2", $result);
     }
 
+    /**
+     * @test
+     */
+    public function should_return_multiple_errors()
+    {
+        $stringCalculator = new StringCalculator();
+
+        $result = $stringCalculator->add("-1,,2");
+
+        $this->assertEquals("Number expected but , found at position 3\nNegative not allowed: -1", $result);
+    }
+
+
+
 
 
 }

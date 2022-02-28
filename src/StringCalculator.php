@@ -13,29 +13,37 @@ class StringCalculator
         if(empty($number)){
             return 0;
         }
+        $sum = 0;
+        $error = false;
+        $errorMsg = "";
         $pos = strpos($number, ",\n");
 
         if($pos !== false){
             $pos +=1;
-            return "Number expected but \n found at position $pos";
+            $errorMsg .= "Number expected but \n found at position $pos";
+            $error = true;
         }
         $pos = strpos($number, "\n,");
         if($pos !== false){
             $pos +=1;
-            return "Number expected but , found at position $pos";
+            $errorMsg .= "Number expected but , found at position $pos";
+            $error = true;
         }
         $pos = strpos($number, "\n\n");
         if($pos !== false){
             $pos +=1;
-            return "Number expected but \n found at position $pos";
+            $errorMsg .= "Number expected but \n found at position $pos";
+            $error = true;
         }
         $pos = strpos($number, ",,");
         if($pos !== false){
             $pos +=1;
-            return "Number expected but , found at position $pos";
+            $errorMsg .="Number expected but , found at position $pos";
+            $error = true;
         }
         if(substr($number, -1)==(",") or substr($number, -1)==("\n")){
-            return "Number expected but EOF found";
+            $errorMsg .= "Number expected but EOF found  ";
+            $error = true;
         }
 
         else{
@@ -54,7 +62,7 @@ class StringCalculator
 
             }
             $negatives = "";
-            $sum = 0;
+
             for($i = 0; $i<count($separatedString); $i++){
                 if($separatedString[$i] < 0){
                     $negatives .= $separatedString[$i] .", "  ;
@@ -64,17 +72,24 @@ class StringCalculator
                 }
 
             }
-            if(empty($negatives)){
-                return $sum;
-            }
-            else{
-
+            if(!empty($negatives)){
                 $returnNegatives = substr($negatives,0 ,strlen($negatives)-2);
-
-                return "Negative not allowed: ".$returnNegatives;
+                if($error){
+                    $errorMsg .= "\nNegative not allowed: ".$returnNegatives;
+                }
+                else{
+                    return "Negative not allowed: ".$returnNegatives;
+                }
 
             }
 
+
+        }
+        if($error){
+            return substr($errorMsg,0,strlen($errorMsg)-2);
+        }
+        else {
+            return $sum;
         }
 
 
