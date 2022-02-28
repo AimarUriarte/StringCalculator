@@ -11,7 +11,8 @@ class StringCalculator
         if(empty($number)){
             return 0;
         }
-        $separatedString = explode(",", $number);
+        $stringToExplode = str_replace("\n", ",", $number);
+        $separatedString = explode(",", $stringToExplode);
 
         $sum = 0;
         for($i = 0; $i<count($separatedString);$i++){

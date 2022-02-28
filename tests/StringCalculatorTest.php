@@ -31,6 +31,20 @@ class StringCalculatorTest extends TestCase
         $this->assertEquals("6.6", $result);
     }
 
+    /**
+     * @test
+     */
+    public function given_unknown_number_of_arguments_and_different_separators_return_addition()
+    {
+        $stringCalculator = new StringCalculator();
+
+        $result = $stringCalculator->add("1.1,2.2,1.1\n2.2");
+
+        $this->assertEquals("6.6", $result);
+    }
+
+
+
 
 
 }
