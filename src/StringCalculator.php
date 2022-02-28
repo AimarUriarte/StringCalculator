@@ -11,7 +11,12 @@ class StringCalculator
         if(empty($number)){
             return 0;
         }
-        return $number;
+        $sum = 0;
+        $separatedString = explode(",", $number);
+        for($i = 0; $i<count($separatedString);$i++){
+            $sum += $separatedString[$i];
+        }
+        return $sum;
     }
 
 }
