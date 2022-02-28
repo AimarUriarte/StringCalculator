@@ -11,14 +11,39 @@ class StringCalculator
         if(empty($number)){
             return 0;
         }
-        $stringToExplode = str_replace("\n", ",", $number);
-        $separatedString = explode(",", $stringToExplode);
+        $pos = strpos($number, ",\n");
 
-        $sum = 0;
-        for($i = 0; $i<count($separatedString);$i++){
-            $sum += $separatedString[$i];
+        if($pos !== false){
+            $pos +=1;
+            return "Number expected but \n found at position $pos";
         }
-        return $sum;
+        $pos = strpos($number, "\n,");
+        if($pos !== false){
+            $pos +=1;
+            return "Number expected but , found at position $pos";
+        }
+        $pos = strpos($number, "\n\n");
+        if($pos !== false){
+            $pos +=1;
+            return "Number expected but \n found at position $pos";
+        }
+        $pos = strpos($number, ",,");
+        if($pos !== false){
+            $pos +=1;
+            return "Number expected but , found at position $pos";
+        }
+        else{
+            $stringToExplode = str_replace("\n", ",", $number);
+            $separatedString = explode(",", $stringToExplode);
+
+            $sum = 0;
+            for($i = 0; $i<count($separatedString);$i++){
+                $sum += $separatedString[$i];
+            }
+            return $sum;
+
+        }
+
     }
 
 }
