@@ -2,6 +2,8 @@
 
 namespace Deg540\PHPTestingBoilerplate;
 
+use function PHPUnit\Framework\assertEmpty;
+use function PHPUnit\Framework\assertEquals;
 use function PHPUnit\Framework\isEmpty;
 
 class StringCalculator
@@ -35,13 +37,15 @@ class StringCalculator
         if(substr($number, -1)==(",") or substr($number, -1)==("\n")){
             return "Number expected but EOF found";
         }
+
         else{
             $pos = strpos($number, "//");
             if($pos !== false){
 
                 $stringToExplode = explode("\n", $number);
-                $operator = substr($stringToExplode[0], -1);
-                $separatedString = explode($operator, $stringToExplode[1]);
+
+                $separatedString = preg_split('/[,;| ]/', $stringToExplode[1], null, PREG_SPLIT_NO_EMPTY);
+
 
             }
             else{
@@ -49,11 +53,28 @@ class StringCalculator
                 $separatedString = explode(",", $stringToExplode);
 
             }
+            $negatives = "";
             $sum = 0;
             for($i = 0; $i<count($separatedString); $i++){
-                $sum += $separatedString[$i];
+                if($separatedString[$i] < 0){
+                    $negatives .= $separatedString[$i] .", "  ;
+                }
+                else{
+                    $sum += $separatedString[$i];
+                }
+
             }
-            return $sum;
+            if(empty($negatives)){
+                return $sum;
+            }
+            else{
+
+                $returnNegatives = substr($negatives,0 ,strlen($negatives)-2);
+
+                return "Negative not allowed: ".$returnNegatives;
+
+            }
+
         }
 
 

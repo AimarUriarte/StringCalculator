@@ -62,9 +62,21 @@ class StringCalculatorTest extends TestCase
     {
         $stringCalculator = new StringCalculator();
 
-        $result = $stringCalculator->add("//|\n1|2");
+        $result = $stringCalculator->add("//sep\n1|2");
 
         $this->assertEquals("3", $result);
+    }
+
+    /**
+     * @test
+     */
+    public function negative_values_return_error()
+    {
+        $stringCalculator = new StringCalculator();
+
+        $result = $stringCalculator->add("//|\n-1|-2");
+
+        $this->assertEquals("Negative not allowed: -1, -2", $result);
     }
 
 
