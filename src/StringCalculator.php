@@ -11,8 +11,9 @@ class StringCalculator
         if(empty($number)){
             return 0;
         }
-        $sum = 0;
         $separatedString = explode(",", $number);
+
+        $sum = 0;
         for($i = 0; $i<count($separatedString);$i++){
             $sum += $separatedString[$i];
         }
