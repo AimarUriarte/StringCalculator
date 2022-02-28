@@ -32,6 +32,9 @@ class StringCalculator
             $pos +=1;
             return "Number expected but , found at position $pos";
         }
+        if(substr($number, -1)==(",") or substr($number, -1)==("\n")){
+            return "Number expected but EOF found";
+        }
         else{
             $stringToExplode = str_replace("\n", ",", $number);
             $separatedString = explode(",", $stringToExplode);
