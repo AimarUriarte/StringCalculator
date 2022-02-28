@@ -36,16 +36,26 @@ class StringCalculator
             return "Number expected but EOF found";
         }
         else{
-            $stringToExplode = str_replace("\n", ",", $number);
-            $separatedString = explode(",", $stringToExplode);
+            $pos = strpos($number, "//");
+            if($pos !== false){
 
+                $stringToExplode = explode("\n", $number);
+                $operator = substr($stringToExplode[0], -1);
+                $separatedString = explode($operator, $stringToExplode[1]);
+
+            }
+            else{
+                $stringToExplode = str_replace("\n", ",", $number);
+                $separatedString = explode(",", $stringToExplode);
+
+            }
             $sum = 0;
-            for($i = 0; $i<count($separatedString);$i++){
+            for($i = 0; $i<count($separatedString); $i++){
                 $sum += $separatedString[$i];
             }
             return $sum;
-
         }
+
 
     }
 

@@ -55,6 +55,18 @@ class StringCalculatorTest extends TestCase
         $this->assertEquals("Number expected but EOF found", $result);
     }
 
+    /**
+     * @test
+     */
+    public function should_handle_custom_delimiters()
+    {
+        $stringCalculator = new StringCalculator();
+
+        $result = $stringCalculator->add("//|\n1|2");
+
+        $this->assertEquals("3", $result);
+    }
+
 
 
 }
